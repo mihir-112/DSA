@@ -1,98 +1,93 @@
 #include <stdio.h>
+#include <stdlib.h>
+#define MAX_SIZE 5
 
-#define MAX 5
-
-int stack[MAX];
-int top = -1;
-
-void push(int value)
-{
-if (top == MAX - 1)
-{
-printf("Stack Overflow\n");
-return;
-}
-
-
-top++;
-
-stack[top] = value;
-
-
-}
-
-void pop()
-{
-if (top == -1)
-{
-printf("Stack Underflow\n");
-return;
-}
-
-
-printf("Deleted element = %d\n", stack[top]);
-
-top--;
-
-
-}
-
-void display()
-{
-if (top == -1)
-{
-printf("Stack is empty\n");
-return;
-}
-
-
-printf("Stack elements are:\n");
-
-for (int i = top; i >= 0; i--)
-{
-    printf("%d\n", stack[i]);
-}
-
-
-}
+int stack[MAX_SIZE];
+int push(int, int);
+int pop(int);
+void display(int);
 
 int main()
 {
-int choice;
-int value;
-
-
-do
+int top=-1,choice,id;
+while(1)
 {
-    printf("\n1. Push\n");
-    printf("2. Pop\n");
-    printf("3. Display\n");
-    printf("4. Exit\n");
+printf("\n----- Browser History -----\n");
+printf("1. Visit a new webpage (Push)\n");
+printf("2. Press Back (Pop)\n");
+printf("3. Display History\n");
+printf("4. Exit\n");
+printf("\nEnter the Choice: ");
+scanf("%d",&choice);
 
-    printf("Enter your choice: ");
-    scanf("%d", &choice);
+switch(choice)
+{
+case 1:
+printf("Enter webpage ID: ");
+scanf("%d",&id);
+top=push(top,id);
+break;
 
-    if (choice == 1)
-    {
-        printf("Enter value: ");
-        scanf("%d", &value);
+case 2:
+top=pop(top);
+break;
 
-        push(value);
-    }
+case 3:
+display(top);
+break;
 
-    else if (choice == 2)
-    {
-        pop();
-    }
+case 4:
+printf("\nEXIT POINT\n");
+exit(0);
 
-    else if (choice == 3)
-    {
-        display();
-    }
-
-} while (choice != 4);
-
+default:
+printf("\nEnter a Valid Choice\n");
+}
+}
 return 0;
+}
 
+int push(int top,int id)
+{
+if(top>=MAX_SIZE-1)
+{
+printf("\nStack Overflow! History is full.\n");
+}
+else
+{
+top++;
+stack[top]=id;
+}
+return top;
+}
 
+void display(int top)
+{
+int i;
+if(top==-1)
+{
+printf("\nHistory is empty.\n");
+}
+else
+{
+printf("\nThe current browser history:\n");
+for(i=top;i>=0;i--)
+{
+printf("%d\n",stack[i]);
+}
+}
+}
+
+int pop(int top)
+{
+if(top==-1)
+{
+printf("\nStack Underflow! History is empty.\n");
+}
+else
+{
+printf("\nWebpage %d removed from history.\n",stack[top]);
+top--;
+}
+return top;
 }
