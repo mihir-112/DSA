@@ -3,13 +3,56 @@
 #define MAX_SIZE 5
 
 int stack[MAX_SIZE];
-int push(int, int);
-int pop(int);
-void display(int);
+
+int push(int top,int id)
+{
+if(top>=MAX_SIZE-1)
+{
+printf("\nStack Overflow! History is full.\n");
+}
+else
+{
+top++;
+stack[top]=id;
+}
+return top;
+}
+
+int pop(int top)
+{
+if(top==-1)
+{
+printf("\nStack Underflow! History is empty.\n");
+}
+else
+{
+printf("\nWebpage %d removed from history.\n",stack[top]);
+top--;
+}
+return top;
+}
+
+void display(int top)
+{
+int i;
+if(top==-1)
+{
+printf("\nHistory is empty.\n");
+}
+else
+{
+printf("\nThe current browser history:\n");
+for(i=top;i>=0;i--)
+{
+printf("%d\n",stack[i]);
+}
+}
+}
 
 int main()
 {
 int top=-1,choice,id;
+
 while(1)
 {
 printf("\n----- Browser History -----\n");
@@ -44,50 +87,6 @@ default:
 printf("\nEnter a Valid Choice\n");
 }
 }
+
 return 0;
-}
-
-int push(int top,int id)
-{
-if(top>=MAX_SIZE-1)
-{
-printf("\nStack Overflow! History is full.\n");
-}
-else
-{
-top++;
-stack[top]=id;
-}
-return top;
-}
-
-void display(int top)
-{
-int i;
-if(top==-1)
-{
-printf("\nHistory is empty.\n");
-}
-else
-{
-printf("\nThe current browser history:\n");
-for(i=top;i>=0;i--)
-{
-printf("%d\n",stack[i]);
-}
-}
-}
-
-int pop(int top)
-{
-if(top==-1)
-{
-printf("\nStack Underflow! History is empty.\n");
-}
-else
-{
-printf("\nWebpage %d removed from history.\n",stack[top]);
-top--;
-}
-return top;
 }
