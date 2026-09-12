@@ -79,3 +79,54 @@ postfix[j]='\0';
 printf("Postfix expression = %s\n",postfix);
 return 0;
 }
+
+
+
+// postfix evaluation
+/* #include <stdio.h>
+int stack[100];
+int top=-1;
+void push(int value)
+{
+top++;
+stack[top]=value;
+}
+int pop()
+{
+int value;
+value=stack[top];
+top--;
+return value;
+}
+int main()
+{
+char postfix[100];
+int i=0;
+printf("Enter postfix expression: ");
+scanf("%s",postfix);
+while(postfix[i]!='\0')
+{
+char ch=postfix[i];
+if(ch>='0'&&ch<='9')
+{
+push(ch-'0');
+}
+else
+{
+int b=pop();
+int a=pop();
+if(ch=='+')
+push(a+b);
+else if(ch=='-')
+push(a-b);
+else if(ch=='*')
+push(a*b);
+else if(ch=='/')
+push(a/b);
+}
+i++;
+}
+printf("Result=%d",pop());
+return 0;
+}
+*/
