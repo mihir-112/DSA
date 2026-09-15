@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<ctype.h>
 
 char stack[50];
 int top=-1;
@@ -38,24 +39,20 @@ int i,j=0;
 
 for(i=0;in[i]!='\0';i++)
 {
-if((in[i]>='A'&&in[i]<='Z')||(in[i]>='a'&&in[i]<='z')||(in[i]>='0'&&in[i]<='9'))
+if(isalnum(in[i]))
 postfix[j++]=in[i];
-
 else if(in[i]=='(')
 push(in[i]);
-
 else if(in[i]==')')
 {
 while(top!=-1&&stack[top]!='(')
 postfix[j++]=pop();
 pop();
 }
-
 else if(isOperator(in[i]))
 {
 while(top!=-1&&stack[top]!='('&&precedence(stack[top])>=precedence(in[i]))
 postfix[j++]=pop();
-
 push(in[i]);
 }
 }
@@ -100,8 +97,7 @@ return stack[top--];
 int main()
 {
 char postfix[50];
-int i;
-int a,b;
+int i,a,b;
 
 printf("Enter postfix expression:");
 scanf("%s",postfix);
@@ -110,7 +106,6 @@ for(i=0;postfix[i]!='\0';i++)
 {
 if(postfix[i]>='0'&&postfix[i]<='9')
 push(postfix[i]-'0');
-
 else
 {
 b=pop();
@@ -124,16 +119,6 @@ else if(postfix[i]=='*')
 push(a*b);
 else if(postfix[i]=='/')
 push(a/b);
-else if(postfix[i]=='^')
-{
-int result=1;
-int j;
-
-for(j=0;j<b;j++)
-result=result*a;
-
-push(result);
-}
 }
 }
 
@@ -141,3 +126,6 @@ printf("Result=%d",pop());
 
 return 0;
 }
+
+
+
