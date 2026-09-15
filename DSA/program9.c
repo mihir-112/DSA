@@ -58,55 +58,84 @@ return 0;
 /*
 #include<stdio.h>
 #include<ctype.h>
+
 int stack[50];
 int top=-1;
-void push(int value){
+
+void push(int value)
+{
 stack[++top]=value;
 }
-int pop(){
-if(top==-1){
+
+int pop()
+{
+if(top==-1)
+{
 printf("Error: Invalid expression");
 return 0;
 }
 return stack[top--];
 }
-int evaluatePostfix(char exp[]){
+
+int evaluatePostfix(char exp[])
+{
 int i,a,b,result;
-for(i=0;exp[i]!='\0';i++){
+
+for(i=0;exp[i]!='\0';i++)
+{
 if(isdigit(exp[i]))
 push(exp[i]-'0');
-else{
+else
+{
 b=pop();
 a=pop();
-if(exp[i]=='+')
+
+switch(exp[i])
+{
+case '+':
 result=a+b;
-else if(exp[i]=='-')
+break;
+
+case '-':
 result=a-b;
-else if(exp[i]=='*')
+break;
+
+case '*':
 result=a*b;
-else if(exp[i]=='/'){
-if(b==0){
+break;
+
+case '/':
+if(b==0)
+{
 printf("Error: Division by zero");
 return 0;
 }
 result=a/b;
-}
-else{
+break;
+
+default:
 printf("Error: Invalid Operator");
 return 0;
 }
+
 push(result);
 }
 }
+
 return pop();
 }
-int main(){
+
+int main()
+{
 char postfix[50];
 int result;
+
 printf("Enter the postfix expression:");
 scanf("%s",postfix);
+
 result=evaluatePostfix(postfix);
+
 printf("Evaluated Result:%d",result);
+
 return 0;
-}
-*/
+}*/
