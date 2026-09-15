@@ -62,7 +62,7 @@ postfix[j++]=pop();
 
 postfix[j]='\0';
 
-printf("Postfix expression=%s",postfix);
+printf("The corresponding postfix expression is:%s",postfix);
 }
 
 int main()
@@ -79,7 +79,9 @@ return 0;
 
 
 
+
 #include<stdio.h>
+#include<ctype.h>
 
 int stack[50];
 int top=-1;
@@ -94,38 +96,47 @@ int pop()
 return stack[top--];
 }
 
-int main()
+int evaluatePostfix(char exp[])
 {
-char postfix[50];
-int i,a,b;
+int i,a,b,result;
 
-printf("Enter postfix expression:");
-scanf("%s",postfix);
-
-for(i=0;postfix[i]!='\0';i++)
+for(i=0;exp[i]!='\0';i++)
 {
-if(postfix[i]>='0'&&postfix[i]<='9')
-push(postfix[i]-'0');
+if(isdigit(exp[i]))
+push(exp[i]-'0');
 else
 {
 b=pop();
 a=pop();
 
-if(postfix[i]=='+')
-push(a+b);
-else if(postfix[i]=='-')
-push(a-b);
-else if(postfix[i]=='*')
-push(a*b);
-else if(postfix[i]=='/')
-push(a/b);
+if(exp[i]=='+')
+result=a+b;
+else if(exp[i]=='-')
+result=a-b;
+else if(exp[i]=='*')
+result=a*b;
+else if(exp[i]=='/')
+result=a/b;
+
+push(result);
 }
 }
 
-printf("Result=%d",pop());
+return pop();
+}
+
+int main()
+{
+char postfix[50];
+int result;
+
+printf("Enter the postfix expression:");
+scanf("%s",postfix);
+
+result=evaluatePostfix(postfix);
+
+printf("Evaluated Result:%d",result);
 
 return 0;
 }
-
-
 
