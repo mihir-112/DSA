@@ -89,13 +89,15 @@ case '*':
 result=a*b;
 break;
 case '/':
-if(b==0){
+if(b==0)
+{
 printf("Error: Division by zero");
 return 0;
 }
 result=a/b;
 break;
-default:printf("Error: Invalid Operator");return 0;
+default:printf("Error: Invalid Operator");
+return 0;
 }
 push(result);
 }
@@ -110,4 +112,5 @@ scanf("%s",postfix);
 result=evaluatePostfix(postfix);
 printf("Evaluated Result:%d",result);
 return 0;
-}*/
+}
+*/
