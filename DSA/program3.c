@@ -1,172 +1,95 @@
-#include <stdio.h>
-
-struct account
-{
-int accountNumber;
-char name[50];
+#include<stdio.h>
+struct Bank{
+int accno;
+char name[20];
 float balance;
 };
-
-void display(struct account arr[], int n)
-{
-for (int i = 0; i < n; i++)
-{
-printf("\nAccount Number : %d\n", arr[i].accountNumber);
-printf("Name : %s\n", arr[i].name);
-printf("Balance : %.2f\n", arr[i].balance);
+void display(struct Bank b){
+printf("\nAccount No:%d",b.accno);
+printf("\nName:%s",b.name);
+printf("\nBalance:%.2f\n",b.balance);
+}
+int main(){
+struct Bank b[10];
+int n,i,choice,acc,found;
+float amount,total;
+printf("Enter number of accounts:");
+scanf("%d",&n);
+for(i=0;i<n;i++){
+printf("Enter account number:");
+scanf("%d",&b[i].accno);
+printf("Enter name:");
+scanf("%s",b[i].name);
+printf("Enter balance:");
+scanf("%f",&b[i].balance);
+}
+do{
+printf("\n1.Display Accounts");
+printf("\n2.Deposit");
+printf("\n3.Withdraw");
+printf("\n4.Search Account");
+printf("\n5.Total Balance");
+printf("\n6.Exit");
+printf("\nEnter choice:");
+scanf("%d",&choice);
+switch(choice){
+case 1:
+for(i=0;i<n;i++)
+display(b[i]);
+break;
+case 2:
+printf("Enter account number:");
+scanf("%d",&acc);
+for(i=0;i<n;i++){
+if(b[i].accno==acc){
+printf("Enter amount:");
+scanf("%f",&amount);
+b[i].balance+=amount;
+printf("Deposit successful!");
 }
 }
-
-int search(struct account arr[], int n, int key)
-{
-for (int i = 0; i < n; i++)
-{
-if (arr[i].accountNumber == key)
-{
-return i;
+break;
+case 3:
+printf("Enter account number:");
+scanf("%d",&acc);
+for(i=0;i<n;i++){
+if(b[i].accno==acc){
+printf("Enter amount:");
+scanf("%f",&amount);
+if(amount<=b[i].balance){
+b[i].balance-=amount;
+printf("Withdrawal successful!");
+}
+else
+printf("Insufficient balance!");
 }
 }
-
-
-return -1;
-
-
+break;
+case 4:
+printf("Enter account number:");
+scanf("%d",&acc);
+found=0;
+for(i=0;i<n;i++){
+if(b[i].accno==acc){
+display(b[i]);
+found=1;
 }
-
-int main()
-{
-int n;
-int choice;
-int key;
-int index;
-float amount;
-
-
-printf("Enter number of accounts: ");
-scanf("%d", &n);
-
-struct account arr[n];
-
-for (int i = 0; i < n; i++)
-{
-    printf("\nEnter account number: ");
-    scanf("%d", &arr[i].accountNumber);
-
-    printf("Enter name: ");
-    scanf(" %[^\n]", arr[i].name);
-
-    printf("Enter balance: ");
-    scanf("%f", &arr[i].balance);
 }
-
-do
-{
-    printf("\n1. Display\n");
-    printf("2. Deposit\n");
-    printf("3. Withdraw\n");
-    printf("4. Search\n");
-    printf("5. Total Balance\n");
-    printf("6. Exit\n");
-
-    printf("Enter your choice: ");
-    scanf("%d", &choice);
-
-    if (choice == 1)
-    {
-        display(arr, n);
-    }
-
-    else if (choice == 2)
-    {
-        printf("Enter account number: ");
-        scanf("%d", &key);
-
-        index = search(arr, n, key);
-
-        if (index == -1)
-        {
-            printf("Account not found\n");
-        }
-        else
-        {
-            printf("Enter amount: ");
-            scanf("%f", &amount);
-
-            arr[index].balance =
-                arr[index].balance + amount;
-
-            printf("Amount deposited successfully\n");
-        }
-    }
-
-    else if (choice == 3)
-    {
-        printf("Enter account number: ");
-        scanf("%d", &key);
-
-        index = search(arr, n, key);
-
-        if (index == -1)
-        {
-            printf("Account not found\n");
-        }
-        else
-        {
-            printf("Enter amount: ");
-            scanf("%f", &amount);
-
-            if (amount > arr[index].balance)
-            {
-                printf("Insufficient balance\n");
-            }
-            else
-            {
-                arr[index].balance =
-                    arr[index].balance - amount;
-
-                printf("Amount withdrawn successfully\n");
-            }
-        }
-    }
-
-    else if (choice == 4)
-    {
-        printf("Enter account number to search: ");
-        scanf("%d", &key);
-
-        index = search(arr, n, key);
-
-        if (index == -1)
-        {
-            printf("Account not found\n");
-        }
-        else
-        {
-            printf("Account found\n");
-            printf("Account Number : %d\n",
-                   arr[index].accountNumber);
-            printf("Name : %s\n",
-                   arr[index].name);
-            printf("Balance : %.2f\n",
-                   arr[index].balance);
-        }
-    }
-
-    else if (choice == 5)
-    {
-        float total = 0;
-
-        for (int i = 0; i < n; i++)
-        {
-            total = total + arr[i].balance;
-        }
-
-        printf("Total Balance = %.2f\n", total);
-    }
-
-} while (choice != 6);
-
+if(found==0)
+printf("Account not found!");
+break;
+case 5:
+total=0;
+for(i=0;i<n;i++)
+total+=b[i].balance;
+printf("Total Balance=%.2f",total);
+break;
+case 6:
+printf("Thank you!");
+break;
+default:
+printf("Invalid choice!");
+}
+}while(choice!=6);
 return 0;
-
-
 }
